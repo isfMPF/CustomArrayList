@@ -7,15 +7,14 @@ public class MyArrayList <T> {
 
     public void add(T value){
         if(size == array.length - 1){
-            grow();
+            grow(size);
         }
         array[size] = value;
         size++;
-
     }
 
-    private void grow() {
-        Object[] arrayNew = new Object[size * 2];
+    private void grow(int val) {
+        Object[] arrayNew = new Object[(val * 2) + 1];
         System.arraycopy(array,0, arrayNew, 0, size);
         array = arrayNew;
     }
@@ -43,6 +42,7 @@ public class MyArrayList <T> {
             for (int i = index; i < size; i++) {
                 array[i]= array[i + 1];
             }
+            decrease();
             size--;
             return true;
         }
@@ -59,6 +59,16 @@ public class MyArrayList <T> {
             }
         }
         return -1;
+    }
+
+    private void decrease(){
+        if (array.length - size > 10 ){
+            grow(size / 2);
+        }
+    }
+
+    public void emptyCell(){
+        System.out.println("Пустая ячейка: " + (array.length - size));
     }
 
 }
