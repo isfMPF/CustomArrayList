@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class Main {
     public static void main(String[] args) {
@@ -26,5 +25,18 @@ public class Main {
 //        arr.display();
 //        System.out.println("Размер массива после удаления: " + arr.size());
 
+
+        MyArrayList<String> str = new MyArrayList<>();
+        str.add("п");
+        str.add("р");
+        str.add("и");
+        str.add("в");
+        str.add("е");
+        str.add("т");
+        str.display();
+        System.out.println("Размер массива до удаления: " + str.size());
+        str.delete("и");
+        str.display();
+        System.out.println("Размер массива после удаления: " + str.size());
     }
 }
