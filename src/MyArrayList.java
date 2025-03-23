@@ -1,8 +1,20 @@
 public class MyArrayList <T> {
 
-    private final int capacity = 10;
-    private int size = 0;
-    private Object[] array = new Object[capacity];
+    private static final int DEFAULT_CAPACITY  = 10;
+    private int size;
+    private Object[] array;
+
+    public MyArrayList(){
+        this(DEFAULT_CAPACITY);
+    }
+
+
+    public MyArrayList(int capacity){
+        if(capacity > 0 ){
+            this.array = new Object[capacity];
+            this.size = 0;
+        }
+    }
 
 
     public void add(T value){
@@ -14,35 +26,29 @@ public class MyArrayList <T> {
     }
 
     private void grow(int val) {
-        Object[] arrayNew = new Object[(val * 2) + 1];
+        int newCapacity = (int) (val * 1.5);
+        Object[] arrayNew = new Object[newCapacity];
         System.arraycopy(array,0, arrayNew, 0, size);
         array = arrayNew;
     }
 
-    public void display(){
-        for (int i = 0; i < size; i++) {
-            System.out.print(array[i] + " ");
-        }
-        System.out.println();
-    }
 
-    private int find(T value){
+
+    public Object findFirst(T value){
         for (int i = 0; i < size; i++) {
-            if(array[i] == value)
+            if(value.equals(array[i]))
                 return i;
         }
-        return size;
+        return -1;
     }
 
-    public boolean delete(T value){
-        int index = find(value);
-        if(index == size){
+    public boolean remove(int index){
+        if(index > size){
             return false;
         }else {
             for (int i = index; i < size; i++) {
                 array[i]= array[i + 1];
             }
-            decrease();
             size--;
             return true;
         }
@@ -61,14 +67,37 @@ public class MyArrayList <T> {
         return -1;
     }
 
-    private void decrease(){
-        if (array.length - size > 10 ){
-            grow(size / 2);
+    public boolean isEmpty(){
+        return size == 0;
+    }
+
+    public T getFirst(){
+        if(size == 0){
+            return null;
+        }else {
+            return (T) array[0];
         }
     }
 
-    public void emptyCell(){
-        System.out.println("Пустая ячейка: " + (array.length - size));
+    @Override
+    public String toString() {
+
+        if (array == null)
+            return "null";
+
+        if (size == -1)
+            return "[]";
+
+        StringBuilder arr = new StringBuilder();
+        arr.append("[");
+        for (int i = 0; i < size; i++) {
+            arr.append(array[i]);
+            if(i < size - 1)
+                arr.append(", ");
+        }
+        arr.append("]");
+        return arr.toString();
     }
+
 
 }
